@@ -281,7 +281,7 @@ def process_single_entry(data: Tuple[str, str, str, str, int]) -> Dict | None:
         "id": base_url,
         "type": type,
         "url": full_url,
-        "content": re.sub("\n", "", text),
+        "content": text,
         "links": links,
         "dois": dois,
         "bibs": bibtexs
@@ -363,6 +363,10 @@ if __name__ == "__main__":
     with gzip.open("output/amuell11.json.gz", "w") as f:
         for entry in parsed_data:
             f.write((json.dumps(entry, ensure_ascii=False) + "\n").encode())
+
+    with open("test.json", 'w') as f:
+        for entry in parsed_data:
+            f.write(json.dumps(entry))
 
     print(len(parsed_data))
 
